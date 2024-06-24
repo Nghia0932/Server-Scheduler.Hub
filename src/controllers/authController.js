@@ -38,7 +38,7 @@ const signup = asyncHandle(async (req, res) => {
     message: 'signup new user successfully',
     data: {
       fullname: newUser.fullname,
-      photoUrl: newUser.photoUrl,
+      photoUrl: newUser.photoAvatardUrl,
       email: newUser.email,
       id: newUser.id,
       accesstoken: await getJsonwebtoken(email, newUser.id),
@@ -46,6 +46,35 @@ const signup = asyncHandle(async (req, res) => {
   });
 });
 
+const signin = asyncHandle(async (req, res) => {
+  const {email, password} = req.body;
+  const existingUser = await UserModel.findOne({email});
+  if (!existingUser) {
+    res.status(403).json({
+      message: 'Account does not exist!!',
+    });
+    throw new Error('Account not found !!');
+  }
+  const isMactchPassword = await bcrypt.compare(
+    password,
+    existingUser.password
+  );
+  if (!isMactchPassword) {
+    res.status(401);
+    throw new Error('email or password is incorrect!');
+  }
+  res.status(200).json({
+    message: 'ok',
+    data: {
+      fullname: existingUser.fullname,
+      id: existingUser.id,
+      email: existingUser.email,
+      accesstoken: await getJsonwebtoken(email, existingUser.id),
+    },
+  });
+});
+
 module.exports = {
   signup,
+  signin,
 };

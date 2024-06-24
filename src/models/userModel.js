@@ -12,7 +12,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  photoUrl: {
+  photoAvatarUrl: {
+    type: String,
+  },
+
+  photoBackGroundUrl: {
     type: String,
   },
   createAt: {
