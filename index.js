@@ -20,5 +20,5 @@ app.listen(PORT, (err) => {
     console.log(err);
     return;
   }
-  console.log(`Server is starting at http://192.168.1.4:${PORT}`);
+  console.log(`Server is starting at http://192.168.1.2:${PORT}`);
 });
