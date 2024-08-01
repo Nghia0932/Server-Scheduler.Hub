@@ -13,13 +13,19 @@ const TaskSchema = new mongoose.Schema({
   colorCard: {
     type: String,
   },
-
   dateStart: {
-    type: Date,
+    type: String,
   },
   dateEnd: {
-    type: Date,
+    type: String,
   },
+  timeStart: {
+    type: String,
+  },
+  timeEnd: {
+    type: String,
+  },
+
   listTodo: {
     type: [String],
   },
